@@ -91,12 +91,12 @@
       };
     };
     //YOUR TURN: add your Mapbox token 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhcmxpZTIzNDMiLCJhIjoiY2tiMTFqa2NpMDFkMjJxbHRpaTF1bHdrcCJ9.cZb6dlMtVboQInxlQmbASw'; //Mapbox token 
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhcmxpZTIzNDMiLCJhIjoiY2p1MzBiYWRlMDF3eTRlczdoaHFxMzl0MCJ9.juqQvFAijgos8InomJ-R7A'; //Mapbox token 
     var map = new mapboxgl.Map({
       container: 'map', // container id
-      style: 'mapbox://styles/charlie2343/ckcfdyfph01ms1iqz9vnd7ft6', //stylesheet location
-      center: [-97.754543,30.276695], // starting position
-      zoom: 10,// starting zoom
+      style: 'mapbox://styles/charlie2343/ckb1301f709c51in30mgwbe9h', //stylesheet location
+      center: [-96.695453,29.304644, ], // starting position
+      zoom: 9,// starting zoom
       transformRequest: transformRequest
     });
 
@@ -104,7 +104,7 @@
       $.ajax({
         type: "GET",
         //YOUR TURN: Replace with csv export link
-        url: 'https://docs.google.com/spreadsheets/d/1SiPTGbj5DPDdjMrhrgk6SyKE2EcZYkX58NnYviRxNAo/gviz/tq?tqx=out:csv&sheet=Sheet1',
+        url: 'https://docs.google.com/spreadsheets/d/1isCZik-Z5gcOPEeyY0a3aAzqch2NZy4DdUufw1sUS6Q/gviz/tq?tqx=out:csv&sheet=Sheet1',
         dataType: "text",
         success: function (csvData) { makeGeoJSON(csvData); }
       });
@@ -128,21 +128,26 @@
                 'data': data
               },
               'paint': {
-                'circle-radius': 5,
-                'circle-color': "purple"
-              }
+                'circle-radius': 7,
+                'circle-color': '#E5E500'
+                'circle-stroke-width' : 1
+              },
             });
-
 
             // When a click event occurs on a feature in the csvData layer, open a popup at the
             // location of the feature, with description HTML from its properties.
-            map.on('click', 'csvData', function (e) {
+            map.on('click','csvData', function (e) {
               var coordinates = e.features[0].geometry.coordinates.slice();
 
               //set popup text 
               //You can adjust the values of the popup to match the headers of your CSV. 
               // For example: e.features[0].properties.Name is retrieving information from the field Name in the original CSV. 
-              var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Status: ` + `</b>` + e.features[0].properties.Status + `</h4>` + `<h4>` + `<b>` + `Signal ID: ` + `</b>` + e.features[0].properties.ID + `</h4>`;
+
+              var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Date: ` + `</b>` + e.features[0].properties.Count_date + `</h4>` + `<h4>` + `<b>` + `Link: ` + `</b>` + e.features[0].properties.Link;
+
+              /*
+              var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Address: ` + `</b>` + e.features[0].properties.Address + `</h4>` + `<h4>` + `<b>` + `Phone: ` + `</b>` + e.features[0].properties.Phone + `</h4>`;*/
+
 
               // Ensure that if the map is zoomed out such that multiple
               // copies of the feature are visible, the popup appears
@@ -158,6 +163,7 @@
                 .setHTML(description)
                 .addTo(map);
             });
+
 
             // Change the cursor to a pointer when the mouse is over the places layer.
             map.on('mouseenter', 'csvData', function () {
