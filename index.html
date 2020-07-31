@@ -129,7 +129,16 @@
               },
               'paint': {
                 'circle-radius': 7,
-                'circle-color': '#E5E500',
+                'circle-color': [
+                'match',
+                ['get','Year'],
+                '2015',
+                '#C0C0C0',
+                '2016',
+                '#E5E500',
+                '2017',
+                '#008000',
+                '#ccc'],
                 'circle-stroke-width' : 1
               },
             });
@@ -143,7 +152,7 @@
               //You can adjust the values of the popup to match the headers of your CSV. 
               // For example: e.features[0].properties.Name is retrieving information from the field Name in the original CSV. 
 
-               var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Study Name: ` + `</b>` + e.features[0].properties.TIA_Name + `</h4>` + `<h4>` + `<b>` + `Link: ` + `</b>` + `<a href="` + e.features[0].properties.Link + `" target=_"blank">` + e.features[0].properties.Location + `</a>` + `</h4>` + `<h4>` + `<b>` + `AM Date: ` + e.features[0].properties.Date_AM + `</h4>`+ `<h4>` + `<b>` + `PM Date: ` + e.features[0].properties.Date_PM + `</h4>`;
+               var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Study Name: ` + `</b>` + e.features[0].properties.TIA_Name + `</h4>` + `<h4>` + `<b>` + `Link: ` + `</b>` + `<a href="` + e.features[0].properties.Link + `" target=_"blank">` + e.features[0].properties.Location + `</a>` + `</h4>` + `<h4>` + `<b>` + `AM Date: ` + `</b>` + e.features[0].properties.Date_AM + `</h4>`+ `<h4>` + `<b>` + `PM Date: ` + `</b>` + e.features[0].properties.Date_PM + `</h4>`+ `<h4>` + `<b>` + `Weekend Date: ` + `</b>` + e.features[0].properties.Date_Wknd + `</h4>`;
               /*
               var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Address: ` + `</b>` + e.features[0].properties.Address + `</h4>` + `<h4>` + `<b>` + `Phone: ` + `</b>` + e.features[0].properties.Phone + `</h4>`;*/
 
