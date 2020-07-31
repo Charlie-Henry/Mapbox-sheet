@@ -119,6 +119,16 @@
         }, function (err, data) {
           map.on('load', function () {
 
+            var layers = map.getStyle().layers;
+            // Find the index of the first symbol layer in the map style
+            var firstSymbolId;
+            for (var i = 0; i < layers.length; i++) {
+              if (layers[i].type === 'symbol') {
+                firstSymbolId = layers[i].id;
+                break;
+              }
+            }
+
             //Add the the layer to the map 
             map.addLayer({
               'id': 'csvData',
@@ -140,8 +150,10 @@
                 '#008000',
                 '#ccc'],
                 'circle-stroke-width' : 1
+                },
               },
-            });
+            firstSymbolId
+            );
 
             // When a click event occurs on a feature in the csvData layer, open a popup at the
             // location of the feature, with description HTML from its properties.
